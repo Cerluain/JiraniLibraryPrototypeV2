@@ -1,10 +1,15 @@
-export default function FileSelect(){
+export default function FileSelect() {
     return (
-    <>
-        <h3>Select File:</h3> 
-        <div>
-            <button>Browse Files</button>
-            <p>No File Selected</p>
-        </div>
-    </>);
+        <>
+            <div>
+                <div className="text-start">
+                    <div className="d-flex align-items-center">
+                        <p className="fs-5">Select File</p>
+                        <button>Browse Files</button>
+
+                    </div>
+                    <p>No File Selected</p>
+                </div>
+            </div>
+        </>);
 }

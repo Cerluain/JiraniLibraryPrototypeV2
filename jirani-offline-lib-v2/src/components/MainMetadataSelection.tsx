@@ -2,19 +2,28 @@ import { useState } from "react"
 import MetadataEnableButton from './MetadataEnableButton'
 import MetadataFields from './MetadataFields'
 
-export default function MainMetadataSelection(){
+export default function MainMetadataSelection() {
 
-    const [isMetadataVisible, setMetadataVisible]  = useState(false);
+    const [isMetadataVisible, setMetadataVisible] = useState(false);
 
-    function toggleMetadataFields(){
+    function toggleMetadataFields() {
         setMetadataVisible(!isMetadataVisible);
     }
 
     return (
         <>
-            <MetadataEnableButton enabling_metadata={!isMetadataVisible} onToggle={toggleMetadataFields}/>
-            {isMetadataVisible && <MetadataFields /> }
-        
+            <div className="card">
+                <div className="card-header text-start d-flex justify-content-between align-items-center">
+                    <p className="fs-4">Optional Data</p>
+                    <MetadataEnableButton enabling_metadata={!isMetadataVisible} onToggle={toggleMetadataFields} />
+                </div>
+                <div className="card-body">
+                     {isMetadataVisible && <MetadataFields />}
+                </div>
+            </div>
+            
+           
+
         </>
     )
 }

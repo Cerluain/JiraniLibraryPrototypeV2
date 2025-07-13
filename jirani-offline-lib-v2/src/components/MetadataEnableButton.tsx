@@ -3,5 +3,5 @@ interface Props{
     onToggle: ()=>void
 }
 export default function MetadataEnableButton({enabling_metadata, onToggle}: Props){
-    return <button onClick={onToggle}>{ enabling_metadata? 'Add':'Hide'} File Details</button>
-}
+    return <button className="btn btn-primary" onClick={onToggle}>{ enabling_metadata? 'Add':'Hide'} File Details</button>
+} 
