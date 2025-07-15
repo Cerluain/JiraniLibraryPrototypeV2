@@ -14,15 +14,20 @@ export default function MainMetadataSelection() {
         <>
             <div className="card">
                 <div className="card-header text-start d-flex justify-content-between align-items-center">
-                    <p className="fs-4">Optional Data</p>
+                    <p className="fs-4">
+                        <i className="bi bi-file-earmark-plus">
+                            Optional Data</i>
+                    </p>
+
                     <MetadataEnableButton enabling_metadata={!isMetadataVisible} onToggle={toggleMetadataFields} />
                 </div>
                 <div className="card-body">
-                     {isMetadataVisible && <MetadataFields />}
+                    {isMetadataVisible ? <MetadataFields /> : <p className="justisfy-content-center fs-4" >...</p>}
                 </div>
+
             </div>
-            
-           
+
+
 
         </>
     )
