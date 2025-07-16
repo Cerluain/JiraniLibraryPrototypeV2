@@ -1,14 +1,18 @@
-export default function FileSelect() {
+interface Props{
+    onFileChange: (event: React.ChangeEvent<HTMLInputElement>)=>void
+}
+export default function FileSelect({onFileChange}:Props) {
     return (
-    <div className="container-md">
-        <div className="d-flex align-items-center gap-3">
-        <button className='btn btn-outline-dark fs-4'>
-            <i className="bi bi-file-earmark-plus">
-                Select File
-            </i>
-        </button>
-        <p className="mb-0 text-muted">No File Selected</p>
-        </div>
+    <div className="m-3">
+        <form action="/upload" method="POST" encType="multipart/form-data">
+            <div className="mb-3">
+                <label className="form-label"> Select Media you want to Upload</label>
+                <input onChange={onFileChange} className="form-control fs-4" type="file" name="file" />
+            </div>
+            
+        </form>
+        
+        
     </div>
 );
 }
