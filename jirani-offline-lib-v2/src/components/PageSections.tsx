@@ -12,7 +12,7 @@ export default function PageSections() {
     const [alertStatusBool, setAlertStatusBool] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
 
-    function sendNewAlert(message: string){
+    function sendNewAlert(message: string) {
         setAlertMessage(message);
         setAlertStatusBool(true);
     }
@@ -23,8 +23,11 @@ export default function PageSections() {
             return;
         }
 
-        const formData = new FormData();
-        formData.append('file', selectedFile);
+        const formInformation = document.getElementById('upload-form') as HTMLFormElement;
+        const formData = new FormData(formInformation);
+
+        formData.append('file', selectedFile);//Also add file information
+        
 
         try {//trying to get the requset to the backend
             const response = await fetch(uploadDir, {
@@ -52,7 +55,7 @@ export default function PageSections() {
     return (
         <>
             <HeaderSection />
-            <StatusAlert setAlertStatus={setAlertStatusBool} message={alertMessage} alertStatus={alertStatusBool}/>
+            <StatusAlert setAlertStatus={setAlertStatusBool} message={alertMessage} alertStatus={alertStatusBool} />
             <div className='container-md mt-4'>
                 <div className="my-3 py-3 bg-light">
                     <FileSelect onFileChange={handleFileChange} />

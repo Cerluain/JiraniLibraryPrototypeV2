@@ -16,6 +16,7 @@ export default function IndividualFormInput({id, label, type = 'text', placehold
         type={type}
         className="form-control"
         id={id}
+        name={id}
         placeholder={placeholderText}
       />
       
