@@ -62,7 +62,7 @@ export default function PageSections() {
                 </div>
             </div>
             <div className="d-flex justify-content-center align-items-center">
-                <button onClick={handleBookUpload} className='btn btn-outline-dark fs-4'>
+                <button type="submit" form="upload-form" onClick={handleBookUpload} className='btn btn-outline-dark fs-4'>
                     Upload Book to Library
                 </button>
             </div>

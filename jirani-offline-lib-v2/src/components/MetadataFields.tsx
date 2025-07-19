@@ -4,7 +4,7 @@ export default function MetadataFields(){
     return(
         <>
             <div className="card-body"> 
-                <form>
+                <form id="upload-form">
                     <IndividualFormInput id="title" label="Title" />
                     <IndividualFormInput id="author" label="Author" />
                     <IndividualFormInput id="publisher" label="Publisher" />

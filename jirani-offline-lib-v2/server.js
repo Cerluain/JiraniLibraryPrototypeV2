@@ -1,5 +1,6 @@
 //Missing Safety Against Traversal Attacks
 //Fix default Title given to files
+//Optional Metadata is not stored with upload
 
 import express from 'express'; //includes bodyParser module
 import fs from 'fs/promises'
