@@ -1,9 +1,22 @@
-import { StrictMode } from 'react'
+import { useState, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import PageSections from './components/PageSections.tsx'
+import Dashboard from './components/Dashboard'
+import PageSections from './components/PageSections';
 
+function App(){
+    const [currentPage,setCurrentPage] = useState<string>("home");
+    function getPage(cur_page: string){
+        switch(cur_page){
+            case 'upload':
+                return <PageSections setCurrentPage={setCurrentPage} />;
+            default: 
+                return <Dashboard setCurrentPage={setCurrentPage} />;
+        }
+    }
+    return getPage(currentPage);
+}
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <PageSections />
-  </StrictMode>,
+    <StrictMode>
+        <App />
+    </StrictMode>
 )

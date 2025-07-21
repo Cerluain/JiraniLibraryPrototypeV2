@@ -7,7 +7,10 @@ import StatusAlert from './StatusAlerts'
 
 const uploadDir = '/upload';
 
-export default function PageSections() {
+interface Props{
+    setCurrentPage: (page:string)=>void
+}
+export default function PageSections({setCurrentPage}:Props) {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [alertStatusBool, setAlertStatusBool] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
@@ -18,6 +21,7 @@ export default function PageSections() {
     }
 
     async function handleBookUpload() {
+        event?.preventDefault();
         if (!selectedFile) {
             sendNewAlert('No File Selected');
             return;
@@ -29,7 +33,7 @@ export default function PageSections() {
         formData.append('file', selectedFile);//Also add file information
         
 
-        try {//trying to get the requset to the backend
+        try {//trying to get the request to the backend
             const response = await fetch(uploadDir, {
                 method: 'POST',
                 body: formData
@@ -54,7 +58,7 @@ export default function PageSections() {
 
     return (
         <>
-            <HeaderSection />
+            <HeaderSection setCurrentPage={setCurrentPage} sectionName="Upload New Media"/>
             <StatusAlert setAlertStatus={setAlertStatusBool} message={alertMessage} alertStatus={alertStatusBool} />
             <div className='container-md mt-4'>
                 <div className="my-3 py-3 bg-light">
@@ -66,7 +70,7 @@ export default function PageSections() {
             </div>
             <div className="d-flex justify-content-center align-items-center">
                 <button type="submit" form="upload-form" onClick={handleBookUpload} className='btn btn-outline-dark fs-4'>
-                    Upload Book to Library
+                    Upload to Library
                 </button>
             </div>
         </>
