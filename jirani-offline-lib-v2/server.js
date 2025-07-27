@@ -108,13 +108,8 @@ async function getJSONFromFileName(filePath) {//Helper Function for each JSON fi
 
 app.get('*', (req, res) => {
     const indexPath = path.join(__dirname, 'index.html');
-    console.log("Launching home page");
+    console.log("Launching from page");
     res.sendFile(indexPath);
-});
-app.get('/upload', (req, res) => {
-    const uploadPath = path.join(__dirname, 'uploadPage.html');
-    console.log("Launching upload page");
-    res.sendFile(uploadPath);
 });
 
 app.listen(port, () => {

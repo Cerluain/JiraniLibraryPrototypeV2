@@ -9,7 +9,7 @@ export default function HeaderSection({sectionName, setCurrentPage}:Props) {
             <nav className="py-2 bg-body-tertiary border-bottom">
                 <div className="container d-flex flex-wrap">
                     <ul className="nav me-auto">
-                        <li className="nav-item"><a href="#" onClick={() => setCurrentPage("home")} className="nav-link link-body-emphasis px-2 active" aria-current="page">Dashboard</a></li>
+                        <li className="nav-item"><a href="#" onClick={() => setCurrentPage("home")} className="nav-link link-body-emphasis px-2 active" aria-current="page">Dashboard</a></li>                   
                         <li className="nav-item"><a href="#" onClick={() => setCurrentPage("upload")} className="nav-link link-body-emphasis px-2">Upload</a></li>
                         <li className="nav-item"><a href="#" className="nav-link link-body-emphasis px-2">About</a></li>
                     </ul>

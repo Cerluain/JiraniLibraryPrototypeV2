@@ -3,8 +3,9 @@ import DashboardList from "./DashboardList";
 
 interface Props{
     setCurrentPage: (page:string)=>void
+    loadViewPage: (filename: string)=>void
 }
-export default function Dashboard({setCurrentPage}:Props){
+export default function Dashboard({setCurrentPage, loadViewPage}:Props){
     return(<>
         <HeaderSection sectionName="Library Dashboard" setCurrentPage={setCurrentPage}/>
 
@@ -13,6 +14,6 @@ export default function Dashboard({setCurrentPage}:Props){
 
         </div>
 
-        <DashboardList />
+        <DashboardList loadViewPage={loadViewPage}/>
     </>);
 }

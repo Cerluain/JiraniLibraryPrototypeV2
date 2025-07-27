@@ -1,7 +1,10 @@
 import MediaCard from "./MediaCard";
 import { useState, useEffect } from 'react'
 
-export default function DashboardList() {
+interface Props{
+    loadViewPage: (filename:string)=> void
+}
+export default function DashboardList({loadViewPage}:Props) {
     const [jsonFiles, setJsonFiles] = useState<any[] | null>(null);
 
     useEffect(()=>{
@@ -16,8 +19,7 @@ export default function DashboardList() {
             console.log("JSON DATA:", data)
             setJsonFiles(data);
         }
-        fetchData();
-        
+        fetchData();        
     },[])
     
     const list_of_media_cards = 
