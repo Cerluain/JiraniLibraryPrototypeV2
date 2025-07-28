@@ -47,7 +47,7 @@ app.post('/upload', upload.single('file'), async (req, res) => {
         const metadata = req.body.metadata ? req.body.metadata : {};
 
         //Predefined
-        metadata.filename = path.parse(req.file.filename).name
+        metadata.filename = req.file.filename
         metadata.timestamp = new Date().toISOString();
         metadata.mimetype = req.file.mimetype;
         metadata.size = req.file.size;
@@ -76,13 +76,33 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 })
 
 //API endpoints for fetching files and metadata
+app.get('/api/fetchPDF/:filename', async (req, res) => {
+    const { filename } = req.params
+    if (!filename) {
+        return res.status(400).send('Missing filename');
+    }
+
+    console.log('API Call To Serve a PDF File')
+    try {
+        const safeFilename = path.normalize(filename).replace(/^(\.\.[\/\\])+/, '');
+        const filePath = path.join(uploadDir, safeFilename);
+
+        await fs.access(filePath);
+
+        res.status(200).sendFile(filePath); // Send the data as JSON response
+    } catch (err) {
+        console.error('Error reading metadata directory:', err);
+        res.status(500).json({ error: 'Failed to read metadata directory' });
+    }
+});
+
 app.get('/api/getJSONFileList', async (req, res) => {
     console.log('API Call To Fetch Metadata Files')
     try {
         const files = await fs.readdir(metadataDir);
         const jsonFiles = files.filter(file => file.endsWith('.json'));
-        
-        console.log("JSON File Names:",jsonFiles);
+
+        console.log("JSON File Names:", jsonFiles);
 
         const allJsonData = await Promise.all(
             jsonFiles.map(file => getJSONFromFileName(path.join(metadataDir, file)))

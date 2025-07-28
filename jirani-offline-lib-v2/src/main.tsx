@@ -6,7 +6,7 @@ import ViewMedia from './components/ViewMedia';
 
 function App(){
 
-    const [currentPage,setCurrentPage] = useState<string>("viewer");
+    const [currentPage,setCurrentPage] = useState<string>("home");
     const [filenameOfSelectedMedia, setFilenameOfSelectedMedia] = useState<string>("")
 
     function loadViewPage(nameOfSelectedFile: string){

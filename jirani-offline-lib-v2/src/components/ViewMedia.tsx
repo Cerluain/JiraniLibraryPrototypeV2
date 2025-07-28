@@ -11,7 +11,7 @@ interface Props {
     setCurrentPage: (page: string) => void
     filenameOfSelectedMedia: string
 }
-export default function ViewMedia({ setCurrentPage,filenameOfSelectedMedia }: Props) {
+export default function ViewMedia({ setCurrentPage, filenameOfSelectedMedia }: Props) {
     return (<>
         <HeaderSection sectionName="Viewing Page" setCurrentPage={setCurrentPage} />
         <PDFComponent pdfMediaTitle={filenameOfSelectedMedia}/>
