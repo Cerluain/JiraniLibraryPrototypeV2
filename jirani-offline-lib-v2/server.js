@@ -76,6 +76,44 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 })
 
 //API endpoints for fetching files and metadata
+app.get('/video/:filename', async(req, res) => {
+    const { filename } = req.params;
+    
+    const range = req.headers.range;
+    if (!filename) 
+        return res.status(400).send('Missing filename');
+    
+    console.log('API Call To Stream an mp4 video')
+    try {
+        const safeFilename = path.normalize(filename).replace(/^(\.\.[\/\\])+/, '');
+        const filePath = path.join(uploadDir, safeFilename);
+        const videoSize = fs.statSync(filePath).size;
+        
+        const CHUNK_SIZE = 500 * 1000 //500kb
+        const start = Number(range.replace(/\D/g, ""));
+        const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
+
+        const contentLength = end - start + 1;
+        const headers = {
+            "Content-Range" : `bytes ${start}-${end}/${videoSize}`,
+            "Accept-Ranges": "bytes",
+            "Content-Length": contentLength,
+            "Content-Type": "video/mp4",
+        };
+
+        res.writeHead(206, headers);
+
+        const videoStream = fs.createReadStream(filePath, {start, end});
+        videoStream.pipe(res);
+
+    } catch(err){
+        console.error('Error at endpoint fetching the video:', err);
+        res.status(500).json({ error: 'Endpoint fetching video failed' });
+    }
+
+    
+});
+
 app.get('/api/fetchPDF/:filename', async (req, res) => {
     const { filename } = req.params
     if (!filename) {
@@ -91,8 +129,8 @@ app.get('/api/fetchPDF/:filename', async (req, res) => {
 
         res.status(200).sendFile(filePath); // Send the data as JSON response
     } catch (err) {
-        console.error('Error reading metadata directory:', err);
-        res.status(500).json({ error: 'Failed to read metadata directory' });
+        console.error('Error at endpoint fetching the PDF:', err);
+        res.status(500).json({ error: 'Endpoint fetching PDF failed' });
     }
 });
 

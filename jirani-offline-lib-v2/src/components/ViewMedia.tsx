@@ -1,5 +1,6 @@
 import HeaderSection from "./HeaderSection";
-import PDFComponent from "./PDFComponent";
+// import PDFComponent from "./PDFComponent";
+import MP4VideoPlayer from "./MP4VideoPlayer";
 import { pdfjs } from 'react-pdf';
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -14,6 +15,7 @@ interface Props {
 export default function ViewMedia({ setCurrentPage, filenameOfSelectedMedia }: Props) {
     return (<>
         <HeaderSection sectionName="Viewing Page" setCurrentPage={setCurrentPage} />
-        <PDFComponent pdfMediaTitle={filenameOfSelectedMedia}/>
+        <MP4VideoPlayer filename={filenameOfSelectedMedia} />
+        {/* <PDFComponent pdfMediaTitle={filenameOfSelectedMedia}/> */}
     </>);
 }
