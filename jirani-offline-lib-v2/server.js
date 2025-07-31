@@ -4,6 +4,7 @@
 
 import express from 'express'; //includes bodyParser module
 import fs from 'fs/promises'
+import { statSync, createReadStream } from 'fs'
 import multer from 'multer';
 import path from 'path';
 
@@ -77,19 +78,29 @@ app.post('/upload', upload.single('file'), async (req, res) => {
 
 //API endpoints for fetching files and metadata
 app.get('/video/:filename', async(req, res) => {
-    const { filename } = req.params;
+    console.log('API Call To Stream an mp4 video');
     
+    const { filename } = req.params;
     const range = req.headers.range;
+
+    console.log(`Request received for filename: ${filename}`);
+    console.log(`Full request headers: ${req.headers}`);
+
     if (!filename) 
         return res.status(400).send('Missing filename');
     
-    console.log('API Call To Stream an mp4 video')
+    const safeFilename = path.normalize(filename).replace(/^(\.\.[\/\\])+/, '');
+    const filePath = path.join(uploadDir, safeFilename);
+    
+    console.log(`Attempting to stream from filepath ${filePath}`);
+    
+    
     try {
-        const safeFilename = path.normalize(filename).replace(/^(\.\.[\/\\])+/, '');
-        const filePath = path.join(uploadDir, safeFilename);
-        const videoSize = fs.statSync(filePath).size;
+        const videoSize = statSync(filePath).size;
         
-        const CHUNK_SIZE = 500 * 1000 //500kb
+        console.log(`File found, total size: ${videoSize} bytes. `);
+
+        const CHUNK_SIZE = 1 * 1e6;  //1 MB for now
         const start = Number(range.replace(/\D/g, ""));
         const end = Math.min(start + CHUNK_SIZE, videoSize - 1);
 
@@ -103,7 +114,7 @@ app.get('/video/:filename', async(req, res) => {
 
         res.writeHead(206, headers);
 
-        const videoStream = fs.createReadStream(filePath, {start, end});
+        const videoStream = createReadStream(filePath, {start, end});
         videoStream.pipe(res);
 
     } catch(err){
