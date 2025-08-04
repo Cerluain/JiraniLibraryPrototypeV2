@@ -14,10 +14,10 @@ interface Props {
 }
 export default function ViewMedia({ setCurrentPage, filenameOfSelectedMedia }: Props) {
     const fileExtension = filenameOfSelectedMedia.split('.').pop()?.toLowerCase();
-    
+
     let mediaComponent = null;
 
-    switch(fileExtension){
+    switch (fileExtension) {
         case 'pdf':
             mediaComponent = <PDFComponent pdfMediaTitle={filenameOfSelectedMedia} />;
             break;
@@ -32,8 +32,14 @@ export default function ViewMedia({ setCurrentPage, filenameOfSelectedMedia }: P
 
     return (<>
         <HeaderSection sectionName="Viewing Page" setCurrentPage={setCurrentPage} />
-        {mediaComponent}
-        
-        
+        <div className='container-md mt-4'>
+            <div className="my-3 py-3 bg-light d-flex flex-column justify-content-center align-items-center">
+
+                {mediaComponent}
+
+            </div>
+        </div>
+
+
     </>);
 }

@@ -49,9 +49,7 @@ export default function PDFComponent({ pdfMediaTitle }: Props) {
     , [pdfMediaTitle])
 
   return ( 
-    <div className='container-md mt-4'>
-      <div className="my-3 py-3 bg-light d-flex flex-column justify-content-center align-items-center">
-
+    <>
       <Document file={pdfBlobUrl} onLoadSuccess={onDocumentLoadSuccess}>
         <Page pageNumber={pageNumber} renderTextLayer={false} renderAnnotationLayer={false} />
       </Document>
@@ -62,7 +60,6 @@ export default function PDFComponent({ pdfMediaTitle }: Props) {
         <button onClick={()=>newPageNum(pageNumber-1)} className='btn btn-outline-dark fs-4 m-3'>{"<"}</button>
         <button onClick={()=>newPageNum(pageNumber+1)} className='btn btn-outline-dark fs-4 m-3'>{">"}</button>
       </div>
-      </div>
-    </div>
+    </>
   );
 }
