@@ -5,7 +5,6 @@ import PageSections from './components/PageSections';
 import ViewMedia from './components/ViewMedia';
 
 function App(){
-
     const [currentPage,setCurrentPage] = useState<string>("home");
     const [filenameOfSelectedMedia, setFilenameOfSelectedMedia] = useState<string>("")
 
